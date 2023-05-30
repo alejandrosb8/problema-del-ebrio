@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Problema del Ebrio</title>
+  </head>
+  <body>
+    <h1>Problema del Ebrio</h1>
+    <button onclick="simulacionEbrio()">Simular</button>
+    <p id="resultado"></p>
+
+    <script>
+      // Esta función es para simular el caminar de una persona ebria en un plano de 2D usando la simulación de Monte Carlo.
+      // Se ejecuta un número de simulaciones especificado por numSimulaciones, y en cada simulación
+      // se ejecutan numPasos pasos aleatorios. Si la persona termina a una distancia de 2 unidades
+      // del punto de partida, se considera un éxito. La probabilidad de éxito se calcula y se muestra en la página
+      function simulacionEbrio() {
+        const numSimulaciones = 1000000; // número de simulaciones que se van a hacer
+        const numPasos = 10; // número de pasos que se van a dar en cada simulación
+        let exitos = 0; // contador de éxitos
+
+        // ciclo para hacer las simulaciones
+        for (let i = 0; i < numSimulaciones; i++) {
+          const posFinal = caminarEbrio(numPasos);
+          if (Math.abs(posFinal.x) + Math.abs(posFinal.y) === 2) {
+            // si la persona está a 2 unidades de distancia del punto de partida, se considera un éxito
+            exitos++;
+          }
+        }
+
+        const probabilidad = exitos / numSimulaciones; // se calcula la probabilidad de éxito
+        document.getElementById("resultado").innerHTML =
+          "Probabilidad de que el ebrio termine su recorrido a dos calles de donde lo empezó: " +
+          probabilidad.toFixed(4); // se muestra la probabilidad en la página
+      }
+
+      //Simula el caminar de una persona ebria en un plano de 2D.
+      function caminarEbrio(pasos) {
+        let posicion = { x: 0, y: 0 };
+
+        for (let i = 0; i < pasos; i++) {
+          const direccion = Math.floor(Math.random() * 4);
+
+          switch (direccion) {
+            case 0:
+              posicion.x++;
+              break;
+            case 1:
+              posicion.x--;
+              break;
+            case 2:
+              posicion.y++;
+              break;
+            case 3:
+              posicion.y--;
+              break;
+          }
+        }
+
+        return posicion;
+      }
+    </script>
+  </body>
+</html>
