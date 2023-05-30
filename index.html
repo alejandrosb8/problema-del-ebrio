@@ -30,9 +30,11 @@
         }
 
         const probabilidad = exitos / numSimulaciones; // se calcula la probabilidad de éxito
+        const probabilidadPorcentaje = probabilidad * 100; // se calcula la probabilidad de éxito en porcentaje
         document.getElementById("resultado").innerHTML =
           "Probabilidad de que el ebrio termine su recorrido a dos calles de donde lo empezó: " +
-          probabilidad.toFixed(4); // se muestra la probabilidad en la página
+          probabilidadPorcentaje.toFixed(2) +
+          "%"; // se muestra el resultado en la página
       }
 
       //Simula el caminar de una persona ebria en un plano de 2D.
